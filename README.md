@@ -30,7 +30,7 @@ Running the file [row_solver.py](row_solver.py) will generate json files in the 
 The filenames of the files created will be
 `{large paper size}-{small paper size}-{number of small pieces}-{number this is more than 2^(m-n)}extra.{extension}`.
 For example, the file `A0-A9-514-2extra.json` will contain information about how to fit
-514 pieces of A9 paper (which is 2 more than the 51w that would be possible without rounding)
+514 pieces of A9 paper (which is 2 more than the 512 that would be possible without rounding)
 on a piece of A0 paper.
 
 Each json file generated contains a list of rectangles in the possible arrangement,
