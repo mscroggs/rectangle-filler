@@ -38,7 +38,7 @@ with each rectangle stored in the format `[[x0, y0], [x1, y1]]` where (x0,y0) an
 are the coordinates of the bottom left and top right corners of the rectangle.
 
 If you'd like to play with the solutions without running the code yourself, you can download
-the json files from [Zenodo](TODO: upload data to Zenodo).
+the json files from [Zenodo](https://doi.org/10.5281/zenodo.19847022).
 
 Once `output/json` has been created (by either running the above command or unzipping the zip
 file of solutions, you can run `python make_svgs.png` to generate SVG vector images in the folder
