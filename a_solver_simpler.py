@@ -2,9 +2,14 @@ from rect import fill
 import json
 from a_paper import a as a_sizes
 import matplotlib.pylab as plt
+import os
 
-with open("found.txt", "w") as f:
-    pass
+if not os.path.isdir("output"):
+    os.system("mkdir output")
+if not os.path.isdir("output/img"):
+    os.system("mkdir output/img")
+if not os.path.isdir("output/json"):
+    os.system("mkdir output/json")
 
 options = []
 
