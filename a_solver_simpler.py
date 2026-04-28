@@ -17,7 +17,8 @@ for i, ai in enumerate(a_sizes):
         if extras > 0:
             options.append([i, j, 2 ** (i-j), extras])
 
-options.sort(key=lambda x: x[2])
+options.sort(key=lambda x: x[0])
+options.sort(key=lambda x: -x[1])
 
 for i, j, n, extras in options:
     small = a_sizes[i]
@@ -57,31 +58,34 @@ for i, j, n, extras in options:
     plt.fill([0, large[1], large[1], 0, 0], [0, 0, large[0], large[0], 0], "r")
     plt.plot([0, large[1], large[1], 0, 0], [0, 0, large[0], large[0], 0], "k-")
 
+    rectangles = []
+
     for x in range(largest[2]):
         o = x * sum(small)
         for a in range(best_row[0]):
-            plt.fill([small[1] * b for b in [a, a+1, a+1, a, a]], [o + small[0] * b for b in [0, 0, 1, 1, 0]], "w")
-            plt.plot([small[1] * b for b in [a, a+1, a+1, a, a]], [o + small[0] * b for b in [0, 0, 1, 1, 0]], "k-")
+            rectangles.append([[small[1] * a, o], [small[1] * (a + 1), o + small[0]]])
         for a in range(best_row[1]):
-            plt.fill([large[1] - small[0] * b for b in [a, a+1, a+1, a, a]], [o + small[1] * b for b in [0, 0, 1, 1, 0]], "w")
-            plt.plot([large[1] - small[0] * b for b in [a, a+1, a+1, a, a]], [o + small[1] * b for b in [0, 0, 1, 1, 0]], "k-")
+            rectangles.append([[large[1] - small[0] * (a + 1), o], [large[1] - small[0] * a, o + small[1]]])
         for a in range(best_row[2]):
-            plt.fill([large[1] - small[1] * b for b in [a, a+1, a+1, a, a]], [o + small[1] + small[0] * b for b in [0, 0, 1, 1, 0]], "w")
-            plt.plot([large[1] - small[1] * b for b in [a, a+1, a+1, a, a]], [o + small[1] + small[0] * b for b in [0, 0, 1, 1, 0]], "k-")
+            rectangles.append([[large[1] - small[1] * (a + 1), o + small[1]], [large[1] - small[1] * a, o + small[1] + small[0]]])
         for a in range(best_row[3]):
-            plt.fill([small[0] * b for b in [a, a+1, a+1, a, a]], [o + small[0] + small[1] * b for b in [0, 0, 1, 1, 0]], "w")
-            plt.plot([small[0] * b for b in [a, a+1, a+1, a, a]], [o + small[0] + small[1] * b for b in [0, 0, 1, 1, 0]], "k-")
+            rectangles.append([[small[0] * a, o + small[0]], [small[0] * (a + 1), o + small[0] + small[1]]])
     for x in range(largest[1]):
         o = largest[2] * sum(small) + x * small[1]
         for a in range(count1):
-            plt.fill([small[0] * b for b in [a, a+1, a+1, a, a]], [o + small[1] * b for b in [0, 0, 1, 1, 0]], "w")
-            plt.plot([small[0] * b for b in [a, a+1, a+1, a, a]], [o + small[1] * b for b in [0, 0, 1, 1, 0]], "k-")
+            rectangles.append([[small[0] * a, o], [small[0] * (a + 1), o + small[1]]])
     for x in range(largest[0]):
         o = largest[2] * sum(small) + largest[1] * small[1] + x * small[0]
         for a in range(count0):
-            plt.fill([small[1] * b for b in [a, a+1, a+1, a, a]], [o + small[0] * b for b in [0, 0, 1, 1, 0]], "w")
-            plt.plot([small[1] * b for b in [a, a+1, a+1, a, a]], [o + small[0] * b for b in [0, 0, 1, 1, 0]], "k-")
+            rectangles.append([[small[1] * a, o], [small[1] * (a + 1), o + small[0]]])
 
+    for [x0, y0], [x1, y1] in rectangles:
+        plt.fill([x0, x1, x1, x0, x0], [y0, y0, y1, y1, y0], "w")
+        plt.plot([x0, x1, x1, x0, x0], [y0, y0, y1, y1, y0], "k-")
+
+    fname = f"A{j}-A{i}-{largest[3]}-{largest[3] - 2**(i-j)}extra"
+    with open(f"output/json/{fname}.json", "w") as f:
+        json.dump(rectangles, f)
     plt.axis("equal")
-    plt.savefig(f"output/img/A{j}-A{i}-{largest[3]}-{largest[3] - 2**(i-j)}extra.png")
+    plt.savefig(f"output/img/{fname}.png")
     plt.clf()
