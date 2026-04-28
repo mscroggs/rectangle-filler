@@ -45,7 +45,7 @@ def fill(
                 if len(placed) + len(rem) // (small[0] * small[1]) < (len(results[0]) if bound is None else bound):
                     return results
                 for res in fill(large, small, placed + [(i, j, o)], rem, bound=bound, info=f"{info} {index}/{len(remaining)}"):
-                    if len(res) > len(results[0]) and len(res) >= bound:
+                    if len(res) > len(results[0]) and len(res) >= (len(results[0]) if bound is None else bound):
                         print(len(res), res)
                         results = [res]
                     elif len(res) == len(results[0]):

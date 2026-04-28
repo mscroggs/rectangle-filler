@@ -1,8 +1,51 @@
 # Rectangle filler
 
-- Run `python a_solver_simpler.py` to generate jsons of solutions with more than $2^n$ copies of
-  smaller paper size in the folder `output/json`. This will also make a folder of low resolution
-  matplotlib images in the folder `output/img`.
-- Once `output/json` has been created (by either running the above command or unzipping the zip
-  file of solutions, run `python make_svgs.png` to generate svg vector images in the folder
-  `output/svg`.
+Code to generate A size paper packings for [Matt Parker's video on this](TODO: link).
+
+A size paper is defined by:
+
+- A0 paper is 841mm by 1190mm. This is very close to having sides in the ratio $1:\sqrt2$ and
+  an area of 1m².
+- for $n>0$, the size A$n$ paper is the smallest side of A$(n-1)$ paper by half the largest side
+  of A$(n-1)$ paper rounded down to the nearest mm.
+
+Due to the rounding down, the area of A$n$ paper is sometimes strictly less that half the area of
+A$(n-1)$ paper. If the sizes were exactly half at each step, you would always be able to
+fit $2^{m-n}$ copies of $Am$ paper on a sheet of A$n$ paper (for $m>n$). But because of this rounding,
+it is sometimes possible to fit more than this. For example, you can fit 514 (ie more than 512)
+pieces of A9 on a piece of A0 paper:
+
+![514 pieces of A9 paper](readme_examples/A0-A9-514.png)
+
+The code in this repository computes arrangements of paper like this.
+
+## Computing arrangments (with an assumption)
+The main solver in this repository makes an assumption about the arrangement of smaller pieces of
+paper: it assumes that the arrangment is made up of rows of landscape, portrait or mixed pieces of paper.
+For example, the A0 and A9 example above contains 11 rows of A9 in portrait and three rows of mixed
+portrait and landscape.
+
+Running the file [row_solver.py](row_solver.py) will generate json files in the folder
+`output/json` and low resolution matplotlib images in the folder `output/img`.
+The filenames of the files created will be
+`{large paper size}-{small paper size}-{number of small pieces}-{number this is more than 2^(m-n)}extra.{extension}`.
+For example, the file `A0-A9-514-2extra.json` will contain information about how to fit
+514 pieces of A9 paper (which is 2 more than the 51w that would be possible without rounding)
+on a piece of A0 paper.
+
+Each json file generated contains a list of rectangles in the possible arrangement,
+with each rectangle stored in the format `[[x0, y0], [x1, y1]]` where $(x_0,y_0)$ and $(x_1,y_1)$
+are the coordinates of the bottom left and top right corners of the rectangle.
+
+If you'd like to play with the solutions without running the code yourself, you can download
+the json files from [Zenodo](TODO: upload data to Zenodo).
+
+Once `output/json` has been created (by either running the above command or unzipping the zip
+file of solutions, you can run `python make_svgs.png` to generate svg vector images in the folder
+`output/svg`.
+
+## Computing arrangements (with a weaker assumption)
+
+## Computing arrangements (with no assumptions)
+
+
