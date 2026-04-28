@@ -2,7 +2,7 @@
 
 import pytest
 import json
-from a_paper import a
+from a_paper import a as a_sizes
 
 with open("found.txt", "w") as f:
     pass
@@ -19,10 +19,6 @@ def fill(
     print(info)
     if remaining is None:
         remaining = [(i, j) for i in range(large[0] + 1) for j in range(large[1] + 1)]
-    if len(placed) == 0:
-        start = (0, -1)
-    else:
-        start = placed[-1]
     results = [placed]
 
     for index, (i, j) in enumerate(remaining):
@@ -65,8 +61,8 @@ if __name__ == "__main__":
         with open("found.txt", "a") as f:
             f.write(f"A{i} into A{j} ({n} - {n + extras})\n")
         print(f"A{i} into A{j}")
-        results = fill(a[j], a[i], bound=n + 1)
-        assert len(results[0]) >= 2**diff
+        results = fill(a_sizes[j], a_sizes[i], bound=n + 1)
+        assert len(results[0]) >= 2**(i-j)
         print(f"Can fit {len(results[0])} copies")
         with open(f"output/a{j}-a{i}.txt", "w") as f:
             for r in results:

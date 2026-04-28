@@ -1,6 +1,5 @@
 """Solver with assumption that smaller pieces of paper make full rows."""
 
-from rect import fill
 import json
 from a_paper import a as a_sizes
 import matplotlib.pylab as plt
