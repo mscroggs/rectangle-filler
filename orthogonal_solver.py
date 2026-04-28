@@ -28,13 +28,31 @@ def fill(
                 continue
             x = (i, i + d[0])
             y = (j, j + d[1])
-            if all((a, j - 1) in remaining for a in range(*x)) or all((i - 1, a) in remaining for a in range(*y)):
+            if all((a, j - 1) in remaining for a in range(*x)) or all(
+                (i - 1, a) in remaining for a in range(*y)
+            ):
                 continue
-            rem = [(a, b) for a, b in remaining if not (x[0] <= a < x[1] and y[0] <= b < y[1]) and (a > i or (a == i and b > j))]
-            if len(placed) + len(rem) // (small[0] * small[1]) < (len(results[0]) if bound is None else bound):
+            rem = [
+                (a, b)
+                for a, b in remaining
+                if not (x[0] <= a < x[1] and y[0] <= b < y[1])
+                and (a > i or (a == i and b > j))
+            ]
+            if len(placed) + len(rem) // (small[0] * small[1]) < (
+                len(results[0]) if bound is None else bound
+            ):
                 return results
-            for res in fill(large, small, placed + [(i, j, o)], rem, bound=bound, info=f"{info} {index}/{len(remaining)}"):
-                if len(res) > len(results[0]) and len(res) >= (len(results[0]) if bound is None else bound):
+            for res in fill(
+                large,
+                small,
+                placed + [(i, j, o)],
+                rem,
+                bound=bound,
+                info=f"{info} {index}/{len(remaining)}",
+            ):
+                if len(res) > len(results[0]) and len(res) >= (
+                    len(results[0]) if bound is None else bound
+                ):
                     print(len(res), res)
                     results = [res]
                 elif len(res) == len(results[0]):
@@ -51,9 +69,9 @@ if __name__ == "__main__":
     for i, ai in enumerate(a_sizes):
         for j, aj in enumerate(a_sizes[:i]):
             n = (aj[0] * aj[1]) // (ai[0] * ai[1])
-            extras = n - 2**(i - j)
+            extras = n - 2 ** (i - j)
             if extras > 0:
-                options.append([i, j, 2 ** (i-j), extras])
+                options.append([i, j, 2 ** (i - j), extras])
 
     options.sort(key=lambda x: -x[3])
 
@@ -62,7 +80,7 @@ if __name__ == "__main__":
             f.write(f"A{i} into A{j} ({n} - {n + extras})\n")
         print(f"A{i} into A{j}")
         results = fill(a_sizes[j], a_sizes[i], bound=n + 1)
-        assert len(results[0]) >= 2**(i-j)
+        assert len(results[0]) >= 2 ** (i - j)
         print(f"Can fit {len(results[0])} copies")
         with open(f"output/a{j}-a{i}.txt", "w") as f:
             for r in results:
@@ -78,10 +96,11 @@ def test_2_by_1():
     assert len(results[0]) == 2
     assert len(results[1]) == 2
 
+
 @pytest.mark.parametrize("n", [1, 2, 4, 8, 16, 32, 64])
 @pytest.mark.parametrize("m", [1, 2, 4, 8, 16, 32, 64])
 def test_halves(n, m):
-    results = fill((2*n, m), (m, n))
+    results = fill((2 * n, m), (m, n))
     for r in results:
         print(r)
         assert len(r) == 2
@@ -90,7 +109,7 @@ def test_halves(n, m):
 @pytest.mark.parametrize("n", [4, 8, 16, 32, 64])
 @pytest.mark.parametrize("m", [4, 8, 16, 32, 64])
 def test_halves_add_1(n, m):
-    results = fill((2*n + 1, m), (m, n))
+    results = fill((2 * n + 1, m), (m, n))
     for r in results:
         print(r)
         assert len(r) == 2
