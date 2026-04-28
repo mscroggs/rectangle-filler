@@ -4,14 +4,14 @@ Code to generate A size paper packings for [Matt Parker's video on this](TODO: l
 
 A size paper is defined by:
 
-- A0 paper is 841mm by 1190mm. This is very close to having sides in the ratio \(1:\sqrt2\) and
+- A0 paper is 841mm by 1190mm. This is very close to having sides in the ratio $1:\sqrt2$ and
   an area of 1m².
-- for \(n>0\), the size A\(n\) paper is the smallest side of A\((n-1)\) paper by half the largest side
-  of A\((n-1)\) paper rounded down to the nearest mm.
+- for $n>0$, the size A$n$ paper is the smallest side of A$(n-1)$ paper by half the largest side
+  of A$(n-1)$ paper rounded down to the nearest mm.
 
-Due to the rounding down, the area of A\(n\) paper is sometimes strictly less that half the area of
-A\((n-1)\) paper. If the sizes were exactly half at each step, you would always be able to
-fit \(2^{m-n}\) copies of \(Am\) paper on a sheet of A\(n\) paper (for \(m>n\)). But because of this rounding,
+Due to the rounding down, the area of A$n$ paper is sometimes strictly less that half the area of
+A$(n-1)$ paper. If the sizes were exactly half at each step, you would always be able to
+fit $2^{m-n}$ copies of $Am$ paper on a sheet of A$n$ paper (for $m>n$). But because of this rounding,
 it is sometimes possible to fit more than this. For example, you can fit 514 (ie more than 512)
 pieces of A9 on a piece of A0 paper:
 
@@ -34,7 +34,7 @@ For example, the file `A0-A9-514-2extra.json` will contain information about how
 on a piece of A0 paper.
 
 Each json file generated contains a list of rectangles in the possible arrangement,
-with each rectangle stored in the format `[[x0, y0], [x1, y1]]` where \((x_0,y_0)\) and \((x_1,y_1)\)
+with each rectangle stored in the format `[[x0, y0], [x1, y1]]` where $(x_0,y_0)$ and $(x_1,y_1)$
 are the coordinates of the bottom left and top right corners of the rectangle.
 
 If you'd like to play with the solutions without running the code yourself, you can download
