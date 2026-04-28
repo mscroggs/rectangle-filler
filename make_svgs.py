@@ -1,3 +1,5 @@
+"""Make SVGs of the solutions."""
+
 import os
 import json
 from a_paper import a

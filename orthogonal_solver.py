@@ -1,3 +1,5 @@
+"""Slow solver with assumption that all paper is either portrait or landscape."""
+
 import pytest
 import json
 from a_paper import a

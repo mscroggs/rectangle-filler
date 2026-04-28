@@ -41,7 +41,7 @@ If you'd like to play with the solutions without running the code yourself, you 
 the json files from [Zenodo](TODO: upload data to Zenodo).
 
 Once `output/json` has been created (by either running the above command or unzipping the zip
-file of solutions, you can run `python make_svgs.png` to generate svg vector images in the folder
+file of solutions, you can run `python make_svgs.png` to generate SVG vector images in the folder
 `output/svg`.
 
 ## Computing arrangements (with a weaker assumption)

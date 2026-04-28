@@ -1,3 +1,5 @@
+"""A size paper."""
+
 a = [(841, 1190)]
 
 while max(a[-1]) > 1:
