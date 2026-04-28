@@ -45,7 +45,15 @@ file of solutions, you can run `python make_svgs.png` to generate svg vector ima
 `output/svg`.
 
 ## Computing arrangements (with a weaker assumption)
+The file [orthogonal_solver.py](orthogonal_solver.py) contains my first attempt at a solver. This
+solver assumes that all the smaller pieces are paper are either portrait or landscape, but doesn't
+allow them to be rotated by other angles.
+
+This solver is very slow and I have yet to leave it for long enough to get any useful output from it.
+
+This solver can be tested by running `python -m pytest orthogonal_solver.py`
 
 ## Computing arrangements (with no assumptions)
-
+There's a chance that there are better solutions where the smaller pieces of paper are rotated
+by arbitrary angles. I've not yet written any code for this.
 
