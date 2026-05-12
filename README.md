@@ -1,6 +1,7 @@
 # Rectangle filler
 
-Code to generate A size paper packings for [Matt Parker's video on this](TODO: link).
+Code to generate A size paper packings for [Matt Parker's video on this](Thanks! Here is the video (https://youtu.be/Ph-xNBeuuvs),
+inspired by [this video](https://www.youtu.be/zDKBCIMkDbw).
 
 A size paper is defined by:
 
